@@ -4,18 +4,19 @@ const httpProxy = require('http-proxy');
 // Создаем прокси-сервер
 const proxy = httpProxy.createProxyServer({});
 // Порт, на котором будет слушать прокси-сервер
-const proxyPort = 8080;
+const proxyPort = 5174;
 
 // Создаем HTTP-сервер
 const server = http.createServer((req, res) => {
     // Перенаправляем запросы на другой сервер
     const targetUrl = 'http://localhost:5173/';
-    const apiServerUrl = 'http://127.0.0.1:3333/';
+    const apiServerUrl = 'http://127.0.0.1:8088';
 
-    if (req.url.startsWith('/api')) {
+    if (req.url.startsWith('/api') || req.url.startsWith('/admin')) {
         // Перенаправляем запросы на /api на API-сервер
         proxy.web(req, res, { target: apiServerUrl });
     } else {
+        console.log('targetUrl')
         // Все остальные запросы обрабатываем по умолчанию
         proxy.web(req, res, { target: targetUrl });
     }
