@@ -10,7 +10,7 @@ const proxyPort = 5174;
 const server = http.createServer((req, res) => {
     // Перенаправляем запросы на другой сервер
     const targetUrl = 'http://localhost:5173/';
-    const apiServerUrl = 'http://127.0.0.1:8088';
+    const apiServerUrl = 'http://127.0.0.1:3333';
 
     if (req.url.startsWith('/api') || req.url.startsWith('/admin')) {
         // Перенаправляем запросы на /api на API-сервер
